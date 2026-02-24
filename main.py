@@ -14,7 +14,11 @@ st.markdown("\n")
 st.markdown("Upload your resume and get AI-powered feedback tailored to your needs!")
 st.markdown("\n") 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Use st.secrets on Streamlit Cloud, os.getenv for local .env
+try:
+    OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+except Exception:
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 uploaded_file = st.file_uploader("Upload your resume (PDF of TXT)", type=["pdf", "txt"])
 st.markdown("\n\n") 
